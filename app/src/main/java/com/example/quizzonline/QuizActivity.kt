@@ -11,12 +11,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.quizzonline.databinding.ActivityMainBinding
 import com.example.quizzonline.databinding.ActivityQuizBinding
-import com.example.quizzonline.databinding.ScoreDialogBinding
+import com.example.quizzonline.databinding.QuizItemRecyclerRowBinding
+import com.example.quizzonline.databinding.ScoreDoalogBinding
 
-
-//Add interface for eventListener
 class QuizActivity : AppCompatActivity(), View.OnClickListener {
     companion object {
         var questionModelList: List<QuestionModel> = listOf()
@@ -30,9 +28,8 @@ class QuizActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityQuizBinding.inflate(layoutInflater)
+        binding=ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //Add eventListenerForTheButtons
         binding.apply {
             btn0.setOnClickListener(this@QuizActivity)
             btn1.setOnClickListener(this@QuizActivity)
@@ -40,14 +37,10 @@ class QuizActivity : AppCompatActivity(), View.OnClickListener {
             btn3.setOnClickListener(this@QuizActivity)
             btnNext.setOnClickListener(this@QuizActivity)
         }
-
         loadQuestions()
         startTimer()
 
-
-//Creating a timer for the quiz duration,and we start it ,with .start()
     }
-
     private fun startTimer() {
         val totalTimeInMilliSec = time.toInt() * 60 * 1000L
         object : CountDownTimer(totalTimeInMilliSec, 1000L) {
@@ -67,7 +60,6 @@ class QuizActivity : AppCompatActivity(), View.OnClickListener {
         }.start()
 
     }
-
     private fun loadQuestions() {
         selectedAnswer = ""
         if (currentQuestionIndex == questionModelList.size) {
@@ -76,10 +68,10 @@ class QuizActivity : AppCompatActivity(), View.OnClickListener {
         }
         binding.apply {
             questionIndicatorTextview.text =
-                "Question ${currentQuestionIndex +1}/${questionModelList.size}"
+                "Question ${currentQuestionIndex + 1}/${questionModelList.size}"
             questionProgressIndicator.progress =
-                ((currentQuestionIndex ).toFloat() / questionModelList.size.toFloat() * 100).toInt()
-            questionTextview.text = questionModelList[currentQuestionIndex].question
+                ((currentQuestionIndex).toFloat() / questionModelList.size.toFloat() * 100).toInt()
+            questionTextviewBlock.text = questionModelList[currentQuestionIndex].question
             btn0.text = questionModelList[currentQuestionIndex].options[0]
             btn1.text = questionModelList[currentQuestionIndex].options[1]
             btn2.text = questionModelList[currentQuestionIndex].options[2]
@@ -87,7 +79,6 @@ class QuizActivity : AppCompatActivity(), View.OnClickListener {
 
         }
     }
-
     override fun onClick(view: View?) {
         binding.apply {
             btn0.setBackgroundColor(getColor(R.color.gray))
@@ -108,12 +99,10 @@ class QuizActivity : AppCompatActivity(), View.OnClickListener {
             clickedBtn.setBackgroundColor(getColor(R.color.orange))
         }
     }
-
     private fun finishQuiz() {
         val totalQuestion = questionModelList.size
         val percentage = ((score.toFloat() / totalQuestion.toFloat()) * 100).toInt()
-
-        val dialogBinding = ScoreDialogBinding.inflate(layoutInflater)
+        val dialogBinding = ScoreDoalogBinding.inflate(layoutInflater)
         dialogBinding.apply {
             scoreProgressIndicator.progress = percentage
             scoreProgressTextPercentage.text = "$percentage %"
@@ -125,14 +114,12 @@ class QuizActivity : AppCompatActivity(), View.OnClickListener {
                 scoreTitle.setTextColor(Color.RED)
             }
             scoreSubtitle.text = "$score out of $totalQuestion are correct"
-            finishButton.text="Finish"
+            finishButton.text = "Finish"
             finishButton.setOnClickListener {
                 finish()
             }
-
         }
         AlertDialog.Builder(this).setView(dialogBinding.root).setCancelable(false).show()
-
+    }
     }
 
-}

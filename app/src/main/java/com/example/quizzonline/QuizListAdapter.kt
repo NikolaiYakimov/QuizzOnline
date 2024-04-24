@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quizzonline.databinding.ActivityMainBinding
-import com.example.quizzonline.databinding.QuizItemRecycleRowBinding
+import com.example.quizzonline.databinding.QuizItemRecyclerRowBinding
 
 
 class QuizListAdapter(private val quizModelList: List<QuizModel>) :
     RecyclerView.Adapter<QuizListAdapter.MyViewHolder>() {
-    class MyViewHolder(private val binding: QuizItemRecycleRowBinding) :
+    class MyViewHolder(private val binding: QuizItemRecyclerRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(model: QuizModel) {
             //Bind all the views
@@ -20,9 +20,11 @@ class QuizListAdapter(private val quizModelList: List<QuizModel>) :
                 quizTimeText.text = model.time + " min"
                 root.setOnClickListener {
                     val intent=Intent(root.context,QuizActivity::class.java)
+                    root.context.startActivity(intent)
                     QuizActivity.questionModelList=model.questionList
                     QuizActivity.time=model.time
                     root.context.startActivity(intent)
+//
                 }
             }
         }
@@ -30,7 +32,7 @@ class QuizListAdapter(private val quizModelList: List<QuizModel>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
-            QuizItemRecycleRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            QuizItemRecyclerRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
