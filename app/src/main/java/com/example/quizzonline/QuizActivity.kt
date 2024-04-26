@@ -1,5 +1,6 @@
 package com.example.quizzonline
 
+import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -65,6 +66,7 @@ class QuizActivity : AppCompatActivity(), View.OnClickListener {
         if (currentQuestionIndex == questionModelList.size) {
             finishQuiz()
             return
+
         }
         binding.apply {
             questionIndicatorTextview.text =
@@ -114,12 +116,13 @@ class QuizActivity : AppCompatActivity(), View.OnClickListener {
                 scoreTitle.setTextColor(Color.RED)
             }
             scoreSubtitle.text = "$score out of $totalQuestion are correct"
-            finishButton.text = "Finish"
+            finishButton.text = "Back to home screen"
             finishButton.setOnClickListener {
+//                moveTaskToBack(true)
                 finish()
             }
         }
-        AlertDialog.Builder(this).setView(dialogBinding.root).setCancelable(false).show()
+        AlertDialog.Builder(this).setView(dialogBinding.root).setCancelable(true).show()
     }
     }
 

@@ -37,8 +37,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         binding.progressBar.visibility=View.GONE
         adapter = QuizListAdapter(quizModelList)
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = adapter
+        binding.recyclerView?.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView?.adapter = adapter
     }
 
     private fun getDataFromFirebase() {

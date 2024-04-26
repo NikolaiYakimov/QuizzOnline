@@ -23,8 +23,7 @@ class QuizListAdapter(private val quizModelList: List<QuizModel>) :
                     root.context.startActivity(intent)
                     QuizActivity.questionModelList=model.questionList
                     QuizActivity.time=model.time
-                    root.context.startActivity(intent)
-//
+
                 }
             }
         }
